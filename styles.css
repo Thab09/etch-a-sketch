@@ -5,8 +5,8 @@
 }
 
 #grid-container {
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border: solid 1px #000;
   display: grid;
 }
