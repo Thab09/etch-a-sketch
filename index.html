@@ -12,14 +12,27 @@
       <div id="container">
         <div id="grid-container"></div>
         <div class="menu">
-          <button id="clear-grid">Clear Canvas</button>
+          <div>
+            <input
+              autocomplete="off"
+              type="color"
+              id="color-picker"
+              name="color-picker"
+              value="#262626"
+            />
+            <label for="color-picker">Color Picker</label>
+          </div>
+          <button class="active" id="shade-picker">Color Shade</button>
+          <button class="active" id="rainbow-picker">Rainbow</button>
+          <button class="active" id="clear-grid">Clear Canvas</button>
           <div id="range-size">
             <span id="size"></span>
             <input
+              autocomplete="off"
               type="range"
               id="grid-range"
               name="grid-range"
-              min="0"
+              min="1"
               max="64"
               value="16"
             />

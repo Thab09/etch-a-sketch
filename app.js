@@ -1,17 +1,32 @@
 const gridContainer = document.getElementById("grid-container");
 const clearBtn = document.getElementById("clear-grid");
-const rangeSize = document.getElementById("range-size");
 const gridRange = document.getElementById("grid-range");
+const colorPicker = document.getElementById("color-picker");
 const defaultGridSize = 16;
+const defaultColor = "#262626";
 let gridSize = defaultGridSize;
-//add mouseover to gridsize change
-//cleargrid
-//use onchange to call updategrid which updates size and calls gridsetup
-gridRange.onchange = (e) => gridSetup(e.target.value);
+let currentColor = defaultColor;
+
+gridRange.onchange = (e) => updateGrid(e.target.value);
 clearBtn.onclick = () => clearGrid();
+
+function updateGrid(gridSize) {
+  updateGridSize(gridSize);
+  resetGrid();
+  gridSetup(gridSize);
+}
 
 function updateGridSize(gridSize) {
   document.getElementById("size").innerText = `${gridSize} x ${gridSize}`;
+}
+
+function clearGrid() {
+  document
+    .querySelectorAll("#grid-container > div")
+    .forEach((box) => (box.style.backgroundColor = "white"));
+}
+function resetGrid() {
+  document.querySelector("#grid-container").innerHTML = "";
 }
 
 function gridSetup(gridSize) {
@@ -19,20 +34,20 @@ function gridSetup(gridSize) {
   for (let i = 0; i < gridSize * gridSize; i++) {
     const smallBox = document.createElement("div");
     smallBox.style.cssText = "border: solid 1px #000";
-    smallBox.addEventListener("mouseover", function (e) {
-      e.target.style.backgroundColor = "grey";
-    });
+    smallBox.onmouseover = (e) =>
+      (e.target.style.backgroundColor = changeColor());
+    // smallBox.addEventListener("mouseover", function (e) {
+    //   e.target.style.backgroundColor = "grey";
+    // });
     gridContainer.appendChild(smallBox);
+    updateGridSize(gridSize);
   }
-  console.log(gridSize);
-  updateGridSize(gridSize);
 }
 
-function clearGrid() {
-  document.querySelector("#grid-container").innerHTML = "";
-  // document
-  //   .querySelectorAll("#grid-container > div")
-  //   .forEach((box) => (box.style.backgroundColor = "white"));
+function pickColor() {}
+function pickShade() {}
+function pickRainbow() {}
+function changeColor() {
+  return defaultColor;
 }
-
 gridSetup(gridSize);
