@@ -1,3 +1,4 @@
+// GETTING ELEMENTS
 const gridContainer = document.getElementById("grid-container");
 const clearBtn = document.getElementById("clear-grid");
 const gridRange = document.getElementById("grid-range");
@@ -7,13 +8,14 @@ const rainbowPicker = document.getElementById("rainbow-picker");
 const eraserPicker = document.getElementById("eraser-picker");
 
 const defaultGridSize = 16;
-const defaultColor = "#262626";
+const defaultColor = "#111111";
 const defaultMode = "color";
 
 let gridSize = defaultGridSize;
 let currentColor = defaultColor;
 let currentMode = defaultMode;
 
+// SETTING COLOR AND MODE
 function setCurrentColor(color) {
   currentColor = color;
 }
@@ -23,6 +25,7 @@ function setCurrentMode(mode) {
   activateMode(mode);
 }
 
+// EVENT LISTNERS
 gridRange.onmousemove = (e) => updateGridSize(e.target.value);
 gridRange.onchange = (e) => updateGrid(e.target.value);
 clearBtn.onclick = () => clearGrid();
@@ -51,12 +54,12 @@ function resetGrid() {
   document.querySelector("#grid-container").innerHTML = "";
 }
 
+// MAIN FUNCTION
 function gridSetup(gridSize) {
   gridContainer.style.cssText = `grid-template-columns: repeat(${gridSize}, 1fr)`;
   for (let i = 0; i < gridSize * gridSize; i++) {
     const smallBox = document.createElement("div");
-    smallBox.style.cssText =
-      "border: solid 1px #000; background-color: #ffffff;";
+    smallBox.style.cssText = "background-color: #ffffff;";
     smallBox.onmouseover = (e) => {
       let color = e.target.style.backgroundColor;
       let hexColor = RGBToHex(color);
@@ -68,9 +71,9 @@ function gridSetup(gridSize) {
 }
 
 function RGBToHex(rgb) {
-  // Choose correct separator
+  // SEPERATING THE RGB INPUT
   let sep = rgb.indexOf(",") > -1 ? "," : " ";
-  // Turn "rgb(r,g,b)" into [r,g,b]
+  // TAKING THE RGB AND PUTTING THE VALUES INTO ARRAY
   rgb = rgb.substr(4).split(")")[0].split(sep);
 
   let r = (+rgb[0]).toString(16),
@@ -83,8 +86,7 @@ function RGBToHex(rgb) {
 
   return "#" + r + g + b;
 }
-//changecolor function should not have parenthesis,
-//take from current mode (if elseif || switch)
+
 function changeColor(color) {
   switch (currentMode) {
     case "color":
@@ -101,6 +103,7 @@ function changeColor(color) {
   }
 }
 
+// ADDING CLASS TO THE CURRENT MODE
 function activateMode(mode) {
   if (mode === "color") {
     colorPicker.classList.add("active");
@@ -127,6 +130,7 @@ function activateMode(mode) {
   }
 }
 
+// DARKEN THE COLORS FOR SHADER
 const subtractLight = function (color, amount) {
   let cc = parseInt(color, 16) - amount;
   let c = cc < 0 ? 0 : cc;
@@ -146,6 +150,7 @@ function darken(color, amount) {
   )}`);
 }
 
+// GENERATING RAINBOW COLORS
 function pickRainbow() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);
 }
